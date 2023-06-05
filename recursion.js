@@ -138,3 +138,113 @@ function factorial(integer){
 }
 number = 7;
 console.log("factorial of " + number + " is",factorial(number))
+
+
+function fibonacci(num){
+    if(num ===1){
+        return 1;
+    }
+    else if (num === 2){
+        return 1;
+    }
+    return (fibonacci(num-1)+fibonacci(num-2))
+}
+
+let fibNum = 9;
+console.log(`the ${fibNum}th digit of the fibonacci series is ${fibonacci(fibNum)}`)
+
+function biggestNumber(array){
+    let currentLargest = 0;
+    array.forEach(element => {
+            if (currentLargest < element) {
+                currentLargest = element;
+            }
+            else if(element.length){
+                if (currentLargest < biggestNumber(element)){
+                    currentLargest = biggestNumber(element);
+                }
+            }
+        })
+        return currentLargest;
+}
+
+function reverse(string){
+    if(string.length <= 1){
+        return string;
+    }
+    else{
+        string = reverse(string.slice(1)).concat(string[0]);
+    }
+    return string;
+}
+
+let stringToReverse = "horatio";
+console.log(`the reverse of ${stringToReverse} is ${reverse(stringToReverse)}`)
+function power(base, exponent){
+    if(exponent === 0){
+        return 1;
+    }
+    else if (exponent === 1){
+        return base;
+    }
+    else {
+        base = base*(power(base, exponent-1));
+    }
+    return base;
+}
+// maybe I should make a logic application... check if something is a valid formula etc. 
+
+myNestedNumArray = [1,2,[1,2,120000000,4,[30,10,200000000000]]]
+
+console.log(`the biggest number is ${biggestNumber(myNestedNumArray)}`)
+let base = 3;
+let exponent = 6;
+console.log(`${base} to the ${exponent} is: ${power(base,exponent)}`)
+
+//is palindrome.
+
+function isPalindrome(string){
+    if(string.length <= 1){
+        return true;
+    }
+    else if (string[0]===string[string.length-1] && isPalindrome(string.slice(1,string.length-1))){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+console.log(isPalindrome("peeleepspeeleep"));
+
+
+//Write a recursive function called someRecursive which accepts an array and a callback. The function returns true if a single value in the array returns true when passed to the callback. Otherwise it returns false.
+
+function someRecursive(array, callback){
+    if(array.length===0){
+        return false;
+    }
+    else if (callback(array[0])){
+        return true;
+    }
+    else{
+        return someRecursive(array.slice(1), callback);
+    }
+}
+
+function flatten(array){
+    let flattenedArray = [];
+    for(each in array){
+        if(Array.isArray(array[each])){
+            for(element in flatten(array[each])){
+                flattenedArray.push(array[each][element]);
+            };
+        }
+        else {flattenedArray.push(array[each])};
+}
+return flattenedArray;
+}
+
+
+
+    console.log(flatten([1,2,3[4,5,6[7,8]]]));
