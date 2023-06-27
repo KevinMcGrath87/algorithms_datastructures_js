@@ -45,5 +45,32 @@ console.log(naiveStringSearch("goat","goatgoatPolegoat"));
 console.log(naiveStringSearch("wart", "allthebestwartsaregreen"));
 
 
+//bubble sort
+//indexing from end of array index i with inner loop j up to i-1...not sure why yet//
+function swap(num1, num2){
+        num1 = num2 - num1; 
+        //sets num2 to value of num 1
+        num2 = num2 - num1;
+        //sets num1 to previous value of num2
+        num1 = num2 + num1; 
+}
+// swap returns an array at this poin keep in mind...
+function bubble(array){
+    for(let j = array.length-1; j=0; j--){
+        for(let i = 0; i <= j; i++){
+            if(array[i]>array[i+1]){
+                swap(array[i],array[i+1]);
+                return(array);
+            }
+        }
+    }
+    return(array);
 
+}
+
+console.log(swap(3,4));
+console.log(swap(1,2));
+console.log(swap(6,3));
+
+console.log(bubble([3,4,5,1,7]));
 
