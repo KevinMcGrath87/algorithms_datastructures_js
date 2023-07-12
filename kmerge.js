@@ -12,12 +12,10 @@ function merge(sub1, sub2){
     while(k<size){
         //see if sub1[i]<sub2[j]
         if(sub1[i]<=sub2[j]||sub2[j]===undefined){
-
             mergedArray[k] = sub1[i];
             i++;
         }
         else if(sub2[j]!==undefined){
-
             mergedArray[k]=sub2[j];
             j++;
         }
@@ -26,7 +24,7 @@ function merge(sub1, sub2){
     return mergedArray;
 }
 
-console.log(merge([100],[80]));
+console.log(merge([],[80]));
 
 
 function mergeSort(array){
