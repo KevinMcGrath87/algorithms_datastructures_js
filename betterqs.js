@@ -73,5 +73,6 @@ function quickSort(array){
 
 
 }
-
+console.time("timer");
 console.log(quickSort(testerArray));
+console.timeEnd("timer");

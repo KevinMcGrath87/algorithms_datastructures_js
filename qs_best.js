@@ -22,23 +22,19 @@ function pivot(array){
             trueCount += 1;
         }
     }
-    console.log("true count", trueCount)
     let diff = array[trueCount-1]-pivot;
     array[trueCount-1]= array[trueCount-1]-diff;
     array[Math.floor(array.length/2)]= array[Math.floor(array.length/2)]+diff;
     console.log("array with pivot placed",array);
 
     for(let i = 0; i < trueCount; i++){
-        console.log("pivot",pivot);
         if(array[i]>pivot){
-            console.log("we found something smaller than pivot!")
             for(j = trueCount; j < array.length; j++){
             if (array[j]<=pivot){
                 let difference = array[i]-array[j];
                 array[i]=array[i]-difference;
                 array[j]= array[j] + difference;
-                console.log("swap time!");
-            }
+             }
         }
     }
     }
@@ -64,4 +60,48 @@ function quickSort(array){
 
 }
 console.log(pivot([6,6]))
+console.time("timer")
 console.log(quickSort([33,1,3,2,4,2]))
+console.timeEnd("timer")
+
+
+function partition(array){
+    let partitionIndex = 0;
+    let pivot = array[Math.floor(array.length/2)]
+    //while or for? need to count all elements less than or equal to pivot.incrementing pivot each time and swapping at the pivot.
+    console.log("pivot",pivot);
+    for(let i = 0; i < array.length; i++){
+        if(array[i]<pivot){
+            swap(array,partitionIndex,i);
+            partitionIndex++;
+        }
+    }
+    console.log("partition" ,array);
+    return(partitionIndex);
+
+}
+
+function swap(array, first, second){
+    difference = array[second]- array[first];
+    array[second]= array[second]-difference;
+    array[first]= array[second]+difference;
+    return array;
+}
+
+
+function quickSortSwap(array){
+    if(array.length <= 1){
+        return array;
+    }
+    let pivot = partition(array);
+    let left = array.slice(0,pivot);
+    let right = array.slice(pivot+1);
+    return(quickSortSwap(left).concat(array[pivot]).concat(quickSortSwap(right)));
+}
+
+console.log(swap([1,2,3],0,0))
+console.log(partition([1,3,5,2,2]));
+
+let testArray = [2,3,1,4,5,3,67,4,3,2,5,4,34,2];
+console.log(quickSortSwap(testArray));
+
