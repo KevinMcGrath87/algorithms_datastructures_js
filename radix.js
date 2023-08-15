@@ -69,3 +69,62 @@ function deleteElement(array,position){
 }
 
 console.log(deleteElement(testArray, 0))
+
+
+function getDigit(number, index){
+    //taking ten to the power of the index 
+    //divide the abs of the number by 10 to the index power. this places the index digit in the 1's column.
+    //take the floor to remove the digits that are now negative mulitples of 10;
+    //take the modulus of 10 of the number since every power larger than 0 of 10 is a multiple of ten the remainder is just the digit in the 1's column which is the indexed digit we care about.
+    //returns 0 if the digit is 0 and 0 if the index is too great. 
+    number = Math.abs(number);
+    number = Math.floor(number/(Math.pow(10,index)));
+    number = number % 10;
+    return number;
+}
+
+function digitCount(number){
+    number = Math.abs(number);
+    number = Math.log10(number);
+    number = Math.floor(number);
+    return number+1;
+}
+
+
+let testNumber = -230;
+let index = 3;
+console.log(`digitcount of ${testNumber}`,digitCount(testNumber));
+console.log(`getdigit at ${index}`, getDigit(testNumber, index));
+function radixal(array){
+    let buckets = [[],[],[],[],[],[],[],[],[],[]]
+    //using logs count max number of digits in the numbers of the array.
+
+    let iterations = 0;
+    array.forEach(element =>{
+        let check = digitCount(element);
+        if (check > iterations){
+            iterations = check;
+        }
+    });
+    for(let i = 0; i<iterations; i++){
+        array.forEach(element=>{
+            let bucketPosition = getDigit(element, i);
+            console.log("bucket position", bucketPosition);
+            console.log(buckets[bucketPosition]);
+            buckets[bucketPosition].push(element)
+            //fills  buckets on that iteration.
+        });
+        //dump the buckets back into the array.
+        let position = 0;
+        for(let i = 0; i< buckets.length; i++){
+            for(j = 0; j< buckets[i].length; j++){
+                array[position] = buckets[i][j];
+                position += 1;
+            }
+            buckets[i]=[];
+        }
+    }
+    return(array);
+
+}
+console.log("radixal", radixal(testArray));
