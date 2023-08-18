@@ -47,6 +47,36 @@ class SingleList {
             this.length+=1;
         }
     }
+    append(val){
+        if(this.head && this.tail == null){
+            this.tail = new Node(val);
+        }
+        else{
+            let temp = this.tail;
+            temp.next = new Node(val);
+            this.tail = temp.next;
+            this.length += 1;
+        }
+    }
+    pop(){
+        let currentNode = this.head;
+        for(let i = 0; i < this.length; i++){
+            if(currentNode.next == null){
+                currentNode == null;
+                this.length-=1;
+                break;
+            }
+            else if(currentNode.next!=this.tail){
+                currentNode = currentNode.next;
+            }
+            else {
+                    currentNode.next = null;
+                    this.tail = currentNode;
+                    this.length -= 1;
+            }
+        }
+
+    }
 }
 
 class Node {
@@ -74,3 +104,17 @@ console.log(list.head.val);
 console.log(list.tail.val);
 console.log(list.head.next.val);
 console.log(list.length);
+
+list.append("my tail");
+let lookAtNode = list.head;
+while(lookAtNode != null){
+    console.log(lookAtNode.val);
+    lookAtNode = lookAtNode.next;
+}
+
+list.pop();
+lookAtNode = list.head;
+while(lookAtNode != null){
+    console.log(lookAtNode.val);
+    lookAtNode = lookAtNode.next;
+}
