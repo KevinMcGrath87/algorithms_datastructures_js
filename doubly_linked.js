@@ -32,7 +32,7 @@ class DoublyLinkedList {
             return undefined;
         }
         else {
-            oldHead = this.head;
+            let oldHead = this.head;
             this.head = oldHead.successor;
             oldHead.successor = null;
             this.head.predecessor = null;
@@ -51,7 +51,7 @@ class DoublyLinkedList {
             this.length -= 1;
         }
         else{
-            newTail = this.tail.predecessor;
+            let newTail = this.tail.predecessor;
             newTail.successor = null;
             this.tail.predecessor = null;
             this.tail = newTail;
@@ -64,12 +64,35 @@ class DoublyLinkedList {
             this.prepend(val);
         }
         else{
-            appendedNode = new Node(val);
-            oldTail = this.tail;
+            let appendedNode = new Node(val);
+            let oldTail = this.tail;
             oldTail.successor = appendedNode;
             appendedNode.predecessor = oldTail;
             this.tail = appendedNode;
             this.length += 1;
+        }
+    }
+    get(index){
+        if(index < 0 || this.length === 0 || index > this.length){
+            return undefined;
+        }
+        else if(this.length - index >= index){
+            let currentNode = this.head;
+            let i = 0;
+            while (i < index){
+                currentNode = currentNode.successor;
+                i+=1;
+            }
+            return(currentNode);
+        }
+        else {
+            let currentNode = this.tail;
+            let i = this.length;
+            while (i > index){
+                currentNode = currentNode.predecessor;
+                i -= 1;
+            }
+            return(currentNode);
         }
     }
 }
@@ -86,6 +109,17 @@ class Node {
 let doubleList = new DoublyLinkedList;
 doubleList.prepend("1");
 doubleList.prepend("2");
+doubleList.prepend("3");
+[4,5,6,7,8].forEach(element=> {
+    doubleList.prepend(element)
+})
 console.log(doubleList.head);
 console.log(doubleList.head.successor);
 console.log(doubleList.head.successor.predecessor);
+console.log(doubleList.length)
+console.log(doubleList.get(doubleList.length));
+// let head = doubleList.get(0)
+// while(head){
+//     console.log(head);
+//     head = head.successor;
+// }
