@@ -6,6 +6,26 @@ class Tree{
     constructor(){
         this.rootNode = null;
     }
+    find(val){
+        if(!this.rootNode){
+            return(undefined);
+        }
+        else{
+            let currentNode = this.rootNode;
+            while(currentNode){
+                if(currentNode.val == val){
+                    return(currentNode);
+                }
+                else if(currentNode.val > val){
+                    currentNode = currentNode.left;
+                }
+                else{
+                    currentNode = currentNode.right;
+                }
+            }
+            return('node with value not found');
+        }
+    }
     addNode(node){
         if(!this.rootNode){
             this.rootNode = node;
@@ -155,10 +175,11 @@ binTree.remove(7);
 console.log(binTree.rootNode)
 binTree.remove(2)
 console.log(binTree.rootNode)
-binTree.add(7)
 binTree.add(2)
 console.log(binTree.rootNode)
 binTree.add(-1)
 console.log(binTree.rootNode.left.right.right);
 //recursive leftRightfunction. checks if it should go right or left. if so calls right or left on the left or right of it. 
 console.log(binTree.rootNode)
+console.log(binTree.find(3))
+console.log(binTree.find(7))
