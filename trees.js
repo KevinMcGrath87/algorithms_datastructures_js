@@ -169,6 +169,7 @@ let binTree = new Tree();
 binTree.add(2);
 binTree.add(3);
 binTree.add(0);
+
 binTree.add(1);
 binTree.add(7);
 binTree.remove(7);
