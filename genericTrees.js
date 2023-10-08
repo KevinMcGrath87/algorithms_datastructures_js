@@ -59,7 +59,7 @@ class Tree {
     //a toggle gets switch if at any level the value is found. a true value for the toggle causes a return at each level
     //if a node has no children and it's value is not the match we either continue to the next one or pop up a level.
     //checkSubTrees.
-    checkSubtrees(val,root = this.rootNode){
+    checkSubtrees(val,root=this.rootNode){
         //a node x is in the tree S iff x is in a subtree of S
         //a subtree S' of S is either S itself, or for any node y in S, S' is y and all of its descendants  
         if(root.val == val){
@@ -72,8 +72,72 @@ class Tree {
         }
         return false;
     }
+    checkLevels(val,nodeArray = [this.rootNode]){
+        //if any node x in the array is the node return true; else if a node x in any subsequent level of T is the node return true.
+        if(nodeArray.length == 0){
+            return false;
+        }
+        for(let i = 0; i< nodeArray.length; i++){
+            if(nodeArray[i].val == val){
+                return true;
+            }
+        }
+        let nextLevel = [];
+        for(let i = 0; i < nodeArray.length; i++){
+            nextLevel = nextLevel.concat(nodeArray[i].children);
+        }
+        return(this.checkLevels(val, nextLevel))
+    }
+    displayTree(arrayOfNodeArrays = [[this.rootNode]]){
+        if(arrayOfNodeArrays.length==0){
+            return("end")
+        }
+        //    function leavesOfNode(node){
+        //         let leaves = 0;
+        //         if(node.children.length == 0){
+        //             return(1);
+        //         }
+        //         for(let i = 0;i < node.children.length;i++){
+        //             leaves = leaves + leavesOfNode(node.children[i])
+        //         }
+        //         return leaves
+        //    }
+
+        //comes into display as [[node,node,node],]
+           function printLevel(arrayOfNodeArrays){
+                let string = '';
+                for(let i = 0; i < arrayOfNodeArrays.length;i++){
+                    let nodeArray = arrayOfNodeArrays[i];
+                    let childNodes = '';
+                    for(let j = 0; j < nodeArray.length; j++){
+                        childNodes = childNodes + nodeArray[j].val +',';
+                    }
+                    string = string + "[" + childNodes + "]"
+                }
+                console.log(string);
+           }
+           printLevel(arrayOfNodeArrays);
+           let nextLevel = [];
+           for(let i = 0; i < arrayOfNodeArrays.length; i++){
+            let nodeArray = arrayOfNodeArrays[i];
+            for(let j = 0; j< nodeArray.length; j++){
+                if(nodeArray[j].children.length != 0){
+                    nextLevel.push(nodeArray[j].children);
+                }
+            }
+            }
+            nextLevel = nextLevel.reverse();
+            // console.log("next level",nextLevel)
+            this.displayTree(arrayOfNodeArrays = nextLevel);
+
+
+        //displays the ranks of the tree line by line.
+        //spaces levels according to how many descendents(left right etc) 
+
+    }
 
 }
+
 
 
 class Node {
@@ -92,12 +156,18 @@ genTree.addNode(0);
 console.log(genTree.rootNode.val)
 genTree.addNode(1, rank = 1);
 genTree.addNode(2, rank = 1);
+genTree.addNode(val = 8, rank = 1);
 genTree.addNode(3, rank = 2);
 genTree.addNode(4,rank = 2);
+genTree.addNode(11, rank = 2);
+genTree.addNode(10, rank = 2);
 genTree.addNode(5, rank = 3);
+genTree.addNode(9, rank = 3);
+genTree.addNode(13,rank = 3);
 genTree.addNode(6,rank=4);
-console.log(genTree.checkSubtrees(val=7));
-console.log(genTree.checkSubtrees(val=1));
+console.log(genTree.addNode(7,rank = 4));
+genTree.addNode(val=12, rank =4)
+console.log(genTree.displayTree());
 
 
 // genTree.addNode("Just another node");
